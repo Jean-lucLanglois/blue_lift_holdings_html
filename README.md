@@ -120,6 +120,63 @@ Ensure all image files (logos and hero images) remain in the project directory:
 - Clean, efficient CSS and HTML
 - Fast load times on standard connections
 
+## SEO Optimization
+
+This website implements comprehensive SEO best practices for search engine visibility:
+
+### Meta Tags & Headers
+- **Meta Description**: Optimized descriptions on each page for search snippets
+- **Meta Keywords**: Relevant keywords targeting M&A advisory, business acquisition, investment sourcing
+- **Robots Meta**: Proper indexing directives (index, follow, max-snippet, max-image-preview)
+- **Canonical URLs**: Absolute URLs to prevent duplicate content issues
+- **Open Graph Tags**: Social media optimization for LinkedIn, Twitter, and Facebook
+
+### Structured Data (Schema Markup)
+- **Organization Schema**: Company information, contact details, address, phone, email
+- **LocalBusiness Schema**: Geographic location (Sheridan, WY) and business classification
+- **Service Schema**: Each service marked with proper schema markup
+- **ContactPage Schema**: Contact page with structured contact information
+- **JSON-LD Format**: Google Rich Snippets and enhanced search results
+
+### Technical SEO
+- **Sitemap.xml**: Complete URL map for search engines (`/sitemap.xml`)
+- **robots.txt**: Crawl directives and sitemap location
+- **Descriptive Titles**: Keyword-rich titles on each page (40-60 characters)
+- **Heading Hierarchy**: Proper H1 → H2 → H3 structure
+- **Mobile Responsive**: Viewport tag and mobile-first design
+- **Clean URLs**: Semantic URL structure (contact.html, privacy-policy.html)
+
+### Content Optimization
+- **Page Titles**: Unique, descriptive titles with primary keywords
+- **Alt Text**: Descriptive alt attributes on all images
+- **Internal Linking**: Navigation and footer links for crawlability
+- **Semantic HTML**: Proper header, nav, main, section, footer tags
+
+### Social Media Integration
+- **Twitter Cards**: Enhanced preview for social sharing
+- **Open Graph Image**: Logo for social sharing previews
+- **Consistent Contact Info**: Business details across all pages
+
+### Accessibility & SEO
+- **Semantic Markup**: Proper HTML structure for screen readers
+- **Language Attribute**: `lang="en"` declaration
+- **Charset**: UTF-8 encoding specified
+- **ARIA Support**: Basic accessibility markup
+
+### Files for SEO
+- `sitemap.xml` - URL map for search engines
+- `robots.txt` - Crawl directives and sitemap reference
+- `style.css` - Optimized stylesheet with proper heading styles
+
+### Recommended Next Steps
+1. Submit sitemap.xml to Google Search Console and Bing Webmaster Tools
+2. Verify domain ownership in Search Console
+3. Monitor keyword rankings and search traffic
+4. Create Google My Business listing for Sheridan, WY
+5. Build quality backlinks from relevant business websites
+6. Develop content strategy for M&A-related topics
+7. Implement structured data testing with Google's Rich Result Tester
+
 ## Future Enhancements
 
 Potential additions for future versions:
@@ -170,7 +227,7 @@ For more information or to schedule a consultation, visit the contact page or re
 0.02    A2P Complient Form
 0.03    styles.css
 0.04    clean
-0.05    
+0.05    SEO
 0.06    
 0.07
 0.08    

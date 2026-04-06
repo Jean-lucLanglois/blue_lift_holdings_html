@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Specify the location of the sitemap
+Sitemap: https://blueliftholdings.com/sitemap.xml
+
+# Disallow crawling of common non-essential directories
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*.pdf$
+
+# Crawl delay for polite crawling
+Crawl-delay: 1
