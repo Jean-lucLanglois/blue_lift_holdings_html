@@ -228,7 +228,7 @@ For more information or to schedule a consultation, visit the contact page or re
 0.03    styles.css
 0.04    clean
 0.05    SEO
-0.06    
+0.06    CNAME
 0.07
 0.08    
 0.09    
