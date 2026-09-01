@@ -87,7 +87,7 @@
 
             <section class="contact-form-section">
                 <h2>Request a Consultation</h2>
-                <form class="contact-form" action="#" method="post">
+                <form id="contact-form" class="contact-form" action="https://submit.blueliftholdings.com/leads/submit" method="post" novalidate>
                     <label for="name">Name</label>
                     <input type="text" id="name" name="name" placeholder="Your name" required>
                     <label for="company">Company</label>
@@ -100,6 +100,7 @@
                     <label for="message">Message</label>
                     <textarea id="message" name="message" placeholder="Tell us about your opportunity or campaign goals" required></textarea>
                     <button type="submit">Send Inquiry</button>
+                    <p id="form-status" role="status" aria-live="polite" style="display:none;margin-top:0.75rem;padding:0.75rem 1rem;border-radius:0.5rem;font-size:0.875rem;"></p>
                 </form>
             </section>
         </div>
@@ -134,5 +135,82 @@
             </div>
         </div>
     </footer>
+
+    <script>
+      // Last-touch attribution capture.
+      (function () {
+        const KEYS = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','gclid','fbclid'];
+        const url = new URLSearchParams(window.location.search);
+        const incoming = {};
+        let hasAny = false;
+        for (const k of KEYS) {
+          const v = url.get(k);
+          if (v) { incoming[k] = v; hasAny = true; }
+        }
+        if (hasAny) sessionStorage.setItem('__lead_attribution', JSON.stringify(incoming));
+        window.__getLeadAttribution = function () {
+          try { return JSON.parse(sessionStorage.getItem('__lead_attribution') || '{}'); }
+          catch { return {}; }
+        };
+      })();
+
+      const WEBHOOK_URL = 'https://submit.blueliftholdings.com/leads/submit';
+      const form = document.getElementById('contact-form');
+      const status = document.getElementById('form-status');
+      const btn = form.querySelector('button[type="submit"]');
+
+      function showStatus(text, kind) {
+        status.textContent = text;
+        status.style.display = 'block';
+        if (kind === 'success') {
+          status.style.background = '#dcfce7';
+          status.style.color = '#166534';
+          status.style.border = '1px solid #86efac';
+        } else if (kind === 'error') {
+          status.style.background = '#fee2e2';
+          status.style.color = '#991b1b';
+          status.style.border = '1px solid #fca5a5';
+        }
+      }
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        btn.disabled = true;
+        const originalText = btn.textContent;
+        btn.textContent = 'Sending…';
+        status.style.display = 'none';
+
+        const payload = {
+          name: form.name.value.trim(),
+          email: form.email.value.trim(),
+          business_name: form.company.value.trim() || undefined,
+          phone: form.mobile.value.trim() || undefined,
+          sms_consent: form.text_contact.checked || undefined,
+          message: form.message.value.trim() || undefined,
+          ...window.__getLeadAttribution()
+        };
+        Object.keys(payload).forEach((k) => payload[k] === undefined && delete payload[k]);
+
+        try {
+          const res = await fetch(WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+          if (!res.ok) {
+            const body = await res.text().catch(() => '');
+            throw new Error(`Server ${res.status}: ${body.slice(0, 200)}`);
+          }
+          showStatus('Thanks! We received your inquiry and will be in touch shortly.', 'success');
+          form.reset();
+        } catch (err) {
+          console.error('blueliftholdings contact submit failed:', err);
+          showStatus('Something went wrong. Please try again or email us at info@blueliftholdings.com.', 'error');
+        } finally {
+          btn.disabled = false;
+          btn.textContent = originalText;
+        }
+      });
+    </script>
 </body>
 </html>
